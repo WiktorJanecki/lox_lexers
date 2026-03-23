@@ -50,8 +50,6 @@ impl ImperativeScanner {
             ')' => append(TokenType::CloseParentheses),
             '{' => append(TokenType::OpenBrace),
             '}' => append(TokenType::CloseBrace),
-            '<' => append(TokenType::OpenAngleBracket),
-            '>' => append(TokenType::CloseAngleBracket),
             _ => false,
         };
         constructed
@@ -206,7 +204,7 @@ impl ImperativeScanner {
         if !matches!(c, '/') {
             return false;
         }
-        if !matches!(self.peek_plus_n(1).unwrap_or('!'), '/'){
+        if !matches!(self.peek().unwrap_or('!'), '/'){
             self.token_buffer.push(Token{token_type:TokenType::Slash,line: self.current_line, position: self.current_position} );
             return true;
         }
@@ -249,7 +247,7 @@ impl ImperativeScanner {
             if c != first{
                 return;
             }
-            if self.peek_plus_n(1).unwrap_or('a')  != second {
+            if self.peek().unwrap_or('a')  != second {
                 let token = Token{token_type: first_tok, line: self.current_line, position: self.current_position};
                 self.token_buffer.push(token);
                 return
