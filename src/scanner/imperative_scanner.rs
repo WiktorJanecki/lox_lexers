@@ -209,6 +209,7 @@ impl ImperativeScanner {
             return true;
         }
 
+        let _ = self.pop();
        self.literal_buffer.clear();
 
         loop{
@@ -218,7 +219,7 @@ impl ImperativeScanner {
                     self.token_buffer.push(token);
                     self.current_line += 1;
                     self.current_position = 0;
-                    break;
+                    return true;
                 }
                 self.literal_buffer.push(c);
                 continue;

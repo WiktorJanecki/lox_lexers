@@ -4,6 +4,7 @@ use crate::tokens::Token;
 
 mod scanner;
 mod tokens;
+mod colorizer;
 
 fn main() {
     let args = std::env::args();
@@ -12,7 +13,7 @@ fn main() {
         std::process::exit(-1);
     });
 
-    let content = std::fs::read_to_string(path).unwrap_or_else(|e| {
+    let content = std::fs::read_to_string(path.as_str()).unwrap_or_else(|e| {
         eprintln!("Failed to read file: {}", e);
         std::process::exit(-1);
     });
@@ -20,8 +21,8 @@ fn main() {
     let mut scanner = ImperativeScanner::new(content);
     match scanner.scan(){
         Ok(tokens) => {
-
-            print_tokens(tokens.as_slice());
+            let new_path = format!("{}.html", path);
+            colorizer::colorize_to_file(tokens, new_path.as_str()).unwrap();
         }
         Err(err) => {
             for e in err{

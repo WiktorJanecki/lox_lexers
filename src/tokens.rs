@@ -1,10 +1,10 @@
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Token{
     pub token_type: TokenType,
     pub line: usize,
     pub position: usize,
 }
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum TokenType {
     Identifier(String),
     NumberLiteral(f64),
