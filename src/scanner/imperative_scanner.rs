@@ -13,7 +13,7 @@ pub struct ImperativeScanner {
 
 impl ImperativeScanner {
     fn is_end(self: &ImperativeScanner) -> bool {
-        self.current_index >= self.text.len()
+        self.current_index >= self.text.chars().count()
     }
 
     fn pop(self: &mut ImperativeScanner) -> Option<char> {
